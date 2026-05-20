@@ -1,0 +1,39 @@
+# AWS CodeBuild — static site to S3 + CloudFront invalidation
+# Required env vars:
+#   FRONTEND_S3_BUCKET
+#   VITE_API_URL          (backend public URL)
+# Optional:
+#   CLOUDFRONT_DISTRIBUTION_ID
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - npm ci
+  build:
+    commands:
+      - test -n "$VITE_API_URL" || (echo "VITE_API_URL is required" && exit 1)
+      - npm run build
+  post_build:
+    commands:
+      - echo "Deploying to s3://$FRONTEND_S3_BUCKET"
+      - aws s3 sync dist/ "s3://$FRONTEND_S3_BUCKET" --delete
+      - |
+        if [ -n "$CLOUDFRONT_DISTRIBUTION_ID" ]; then
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/*"
+        fi
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: dist
+
+cache:
+  paths:
+    - node_modules/**/*

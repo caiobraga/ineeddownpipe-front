@@ -1,0 +1,8 @@
+# iNeedDownpipe — BMW downpipe price comparison (US)
+# https://ineeddownpipe.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://ineeddownpipe.com/sitemap.xml
