@@ -1,1 +1,1 @@
-{"root":["./src/App.tsx","./src/api.ts","./src/main.tsx","./src/product-image.ts","./src/types.ts","./src/vite-env.d.ts","./src/components/Filters.tsx","./src/components/ProductCard.tsx","./src/components/SeoDiscovery.tsx","./src/seo/SeoHead.tsx","./src/seo/config.ts"],"version":"5.9.3"}
+{"root":["./src/App.tsx","./src/api.ts","./src/main.tsx","./src/product-image.ts","./src/types.ts","./src/vite-env.d.ts","./src/components/Filters.tsx","./src/components/ProductCard.tsx","./src/seo/SeoHead.tsx","./src/seo/config.ts"],"version":"5.9.3"}
