@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { fetchProducts, refreshCatalog } from "./api";
 import { Filters } from "./components/Filters";
 import { ProductCard } from "./components/ProductCard";
@@ -22,6 +22,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [sheetOffset, setSheetOffset] = useState(0);
+  const dragStartY = useRef<number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -53,6 +56,53 @@ export default function App() {
     } finally {
       setRefreshing(false);
     }
+  };
+
+  const activeFilterCount = [
+    filters.search,
+    filters.source,
+    filters.model,
+    filters.brand,
+    filters.minPrice,
+    filters.maxPrice,
+  ].filter(Boolean).length;
+
+  useEffect(() => {
+    if (!filtersOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setFiltersOpen(false);
+    };
+
+    document.body.classList.add("filter-sheet-open");
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.classList.remove("filter-sheet-open");
+      window.removeEventListener("keydown", onKeyDown);
+      setSheetOffset(0);
+      dragStartY.current = null;
+    };
+  }, [filtersOpen]);
+
+  const startSheetDrag = (clientY: number) => {
+    dragStartY.current = clientY;
+    setSheetOffset(0);
+  };
+
+  const moveSheetDrag = (clientY: number) => {
+    if (dragStartY.current === null) return;
+    setSheetOffset(Math.max(0, clientY - dragStartY.current));
+  };
+
+  const endSheetDrag = () => {
+    if (sheetOffset > 90) {
+      setFiltersOpen(false);
+      return;
+    }
+
+    setSheetOffset(0);
+    dragStartY.current = null;
   };
 
   return (
@@ -122,6 +172,18 @@ export default function App() {
                 ? "Loading…"
                 : `${products.length} result${products.length !== 1 ? "s" : ""}`}
             </p>
+            <button
+              type="button"
+              className="catalog__filter-button"
+              onClick={() => setFiltersOpen(true)}
+            >
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="catalog__filter-count">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
           </div>
 
           {error && <div className="catalog__error">{error}</div>}
@@ -142,6 +204,64 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      {filtersOpen && (
+        <div
+          className="filter-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="filter-sheet-title"
+        >
+          <button
+            type="button"
+            className="filter-sheet__backdrop"
+            aria-label="Close filters"
+            onClick={() => setFiltersOpen(false)}
+          />
+          <div
+            className="filter-sheet__panel"
+            style={{ transform: `translateY(${sheetOffset}px)` }}
+          >
+            <div
+              className="filter-sheet__grabber"
+              role="presentation"
+              onMouseDown={(event) => startSheetDrag(event.clientY)}
+              onMouseMove={(event) => moveSheetDrag(event.clientY)}
+              onMouseUp={endSheetDrag}
+              onMouseLeave={endSheetDrag}
+              onTouchStart={(event) =>
+                startSheetDrag(event.touches[0]?.clientY ?? 0)
+              }
+              onTouchMove={(event) =>
+                moveSheetDrag(event.touches[0]?.clientY ?? 0)
+              }
+              onTouchEnd={endSheetDrag}
+            >
+              <span />
+            </div>
+            <div className="filter-sheet__header">
+              <div>
+                <p className="filter-sheet__eyebrow">Refine catalog</p>
+                <h2 id="filter-sheet-title">Filters</h2>
+              </div>
+              <button
+                type="button"
+                className="filter-sheet__close"
+                onClick={() => setFiltersOpen(false)}
+              >
+                Done
+              </button>
+            </div>
+            <Filters
+              filters={filters}
+              meta={meta}
+              onChange={setFilters}
+              onRefresh={handleRefresh}
+              refreshing={refreshing}
+            />
+          </div>
+        </div>
+      )}
 
       <footer className="footer">
         <div className="footer__inner">
