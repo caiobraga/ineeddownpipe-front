@@ -4,7 +4,6 @@ import { getProductImageSrc } from "../product-image";
 
 const SOURCE_LABELS: Record<string, string> = {
   bimmerworld: "BimmerWorld",
-  turner: "Turner",
   ind: "IND",
   arm: "ARM",
   amazon: "Amazon",

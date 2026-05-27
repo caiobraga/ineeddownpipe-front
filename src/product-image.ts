@@ -12,9 +12,5 @@ export function getProductImageSrc(product: Product): string | null {
     return `${API_BASE}${product.imageUrl}`;
   }
 
-  if (product.source === "turner") {
-    return null;
-  }
-
   return product.imageUrl;
 }

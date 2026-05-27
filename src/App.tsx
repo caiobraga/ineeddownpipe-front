@@ -134,10 +134,6 @@ export default function App() {
             BimmerWorld
           </a>
           {" · "}
-          <a href="https://www.turnermotorsport.com/c-807-bmw-downpipes" target="_blank" rel="noopener noreferrer">
-            Turner
-          </a>
-          {" · "}
           <a href="https://ind-distribution.com/search?q=bmw+downpipe" target="_blank" rel="noopener noreferrer">
             IND
           </a>

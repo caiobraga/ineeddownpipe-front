@@ -21,7 +21,6 @@ const ALLOW_REFRESH =
 const SOURCE_OPTIONS = [
   { value: "", label: "All sources" },
   { value: "bimmerworld", label: "BimmerWorld" },
-  { value: "turner", label: "Turner Motorsport" },
   { value: "ind", label: "IND Distribution" },
   { value: "arm", label: "ARM Motorsports" },
   { value: "amazon", label: "Amazon" },
