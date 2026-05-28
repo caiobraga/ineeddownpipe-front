@@ -24,6 +24,8 @@ const SOURCE_OPTIONS = [
   { value: "ind", label: "IND Distribution" },
   { value: "arm", label: "ARM Motorsports" },
   { value: "amazon", label: "Amazon" },
+  { value: "novaracing", label: "Nova Racing (BR)" },
+  { value: "turbobrothers", label: "Turbo Brothers (BR)" },
 ];
 
 export function Filters({

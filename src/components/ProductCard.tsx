@@ -7,6 +7,8 @@ const SOURCE_LABELS: Record<string, string> = {
   ind: "IND",
   arm: "ARM",
   amazon: "Amazon",
+  novaracing: "Nova Racing",
+  turbobrothers: "Turbo Brothers",
 };
 
 interface Props {
@@ -20,10 +22,13 @@ export function ProductCard({ product }: Props) {
 
   const priceLabel =
     product.price != null
-      ? new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: product.currency || "USD",
-        }).format(product.price)
+      ? new Intl.NumberFormat(
+          product.currency === "BRL" ? "pt-BR" : "en-US",
+          {
+            style: "currency",
+            currency: product.currency || "USD",
+          }
+        ).format(product.price)
       : "Price on request";
 
   const handleClick = () => {

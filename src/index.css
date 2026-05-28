@@ -595,6 +595,26 @@ body.filter-sheet-open {
   border-color: #fed7aa;
 }
 
+.product-card__badge--novaracing {
+  color: #284791;
+  border-color: #bfdbfe;
+}
+
+.product-card__badge--turbobrothers {
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.product-card__badge--novaracing {
+  color: #284791;
+  border-color: #c7d2fe;
+}
+
+.product-card__badge--turbobrothers {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
 .product-card__body {
   padding: 0.75rem;
   flex-shrink: 0;

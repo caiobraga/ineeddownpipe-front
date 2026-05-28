@@ -149,6 +149,22 @@ export default function App() {
           >
             Amazon
           </a>
+          {" · "}
+          <a
+            href="https://www.novaracing.com.br/downpipes"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Nova Racing
+          </a>
+          {" · "}
+          <a
+            href="https://www.turbobrothers.com.br/downpipe"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Turbo Brothers
+          </a>
         </p>
       </header>
 
