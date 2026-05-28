@@ -14,7 +14,7 @@ export const SITE_TAGLINE =
   "Compare BMW downpipe prices from top US retailers — free, no sign-up.";
 
 export const SITE_DESCRIPTION =
-  "Free BMW downpipe price comparison for the US market. Search and filter catless, catted, and turbo downpipes for N55, B58, S55, N20, and more from BimmerWorld, Turner Motorsport, IND, ARM, and Amazon.";
+  "Free BMW downpipe price comparison for the US market. Search and filter catless, catted, and turbo downpipes for N55, B58, S55, N20, and more from BimmerWorld, IND Distribution, ARM Motorsports, and Amazon.";
 
 export const SITE_KEYWORDS = [
   "BMW downpipe",
@@ -26,7 +26,6 @@ export const SITE_KEYWORDS = [
   "catless downpipe BMW",
   "catted downpipe",
   "BimmerWorld downpipe",
-  "Turner Motorsport downpipe",
   "IND Distribution exhaust",
   "ARM Motorsports downpipe",
 ].join(", ");
